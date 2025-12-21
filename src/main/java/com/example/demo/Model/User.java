@@ -28,5 +28,4 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    // Getters and setters
 }
