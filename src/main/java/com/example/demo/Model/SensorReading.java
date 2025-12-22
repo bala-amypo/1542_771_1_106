@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "sensor_readings")
@@ -24,9 +23,6 @@ public class SensorReading {
 
     private String status;
 
-    @OneToMany(mappedBy = "sensorReading")
-    private List<ComplianceLog> logs;
-
     public SensorReading() {}
 
     public SensorReading(Sensor sensor, Double readingValue, LocalDateTime readingTime, String status) {
@@ -36,5 +32,18 @@ public class SensorReading {
         this.status = status;
     }
 
-    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Sensor getSensor() { return sensor; }
+    public void setSensor(Sensor sensor) { this.sensor = sensor; }
+
+    public Double getReadingValue() { return readingValue; }
+    public void setReadingValue(Double readingValue) { this.readingValue = readingValue; }
+
+    public LocalDateTime getReadingTime() { return readingTime; }
+    public void setReadingTime(LocalDateTime readingTime) { this.readingTime = readingTime; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

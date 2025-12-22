@@ -20,9 +20,7 @@ public class ComplianceLog {
     private ComplianceThreshold thresholdUsed;
 
     private String statusAssigned;
-
     private String remarks;
-
     private LocalDateTime loggedAt;
 
     public ComplianceLog() {}
@@ -35,5 +33,11 @@ public class ComplianceLog {
         this.loggedAt = loggedAt;
     }
 
-    // Getters and setters
-}
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public SensorReading getSensorReading() { return sensorReading; }
+    public void setSensorReading(SensorReading sensorReading) { this.sensorReading = sensorReading; }
+
+    public ComplianceThreshold getThresholdUsed() { return thresholdUsed; }
+    public void
