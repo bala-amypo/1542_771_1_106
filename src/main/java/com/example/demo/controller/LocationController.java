@@ -1,40 +1,30 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Location;
 import com.example.demo.service.LocationService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/locations")
-@Tag(name = "Locations Endpoints")
+@RequestMapping("/locations")
 public class LocationController {
 
     private final LocationService locationService;
 
+    @Autowired
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
 
-    @PostMapping
-    @Operation(summary = "Create a new location")
-    public ApiResponse create(@RequestBody Location location) {
-        Location saved = locationService.createLocation(location);
-        return new ApiResponse(true, "Location created successfully", saved);
+    // Example API endpoint to save location
+    @PostMapping("/save")
+    public String saveLocation(@RequestParam String locationName) {
+        locationService.saveLocation(locationName);
+        return "Location saved successfully: " + locationName;
     }
 
-    @GetMapping
-    @Operation(summary = "List all locations")
-    public List<Location> getAll() {
-        return locationService.getAllLocations();
-    }
-
+    // Example API endpoint to get location by ID
     @GetMapping("/{id}")
-    @Operation(summary = "Get location by ID")
-    public Location getById(@PathVariable Long id) {
+    public String getLocation(@PathVariable Long id) {
         return locationService.getLocation(id);
     }
 }
