@@ -5,6 +5,7 @@ import com.example.demo.repository.ComplianceThresholdRepository;
 import com.example.demo.service.ComplianceThresholdService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,7 +19,17 @@ public class ComplianceThresholdServiceImpl implements ComplianceThresholdServic
     }
 
     @Override
-    public Optional<ComplianceThreshold> getThresholdBySensorType(String sensorType) {
-        return complianceThresholdRepository.findBySensorType(sensorType);
+    public ComplianceThreshold createThreshold(ComplianceThreshold complianceThreshold) {
+        return complianceThresholdRepository.save(complianceThreshold);
+    }
+
+    @Override
+    public List<ComplianceThreshold> getAllThresholds() {
+        return complianceThresholdRepository.findAll();
+    }
+
+    @Override
+    public Optional<ComplianceThreshold> getThreshold(Long id) {
+        return complianceThresholdRepository.findById(id);
     }
 }
