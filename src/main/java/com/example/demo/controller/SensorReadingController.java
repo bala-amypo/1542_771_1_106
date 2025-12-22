@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ApiResponse;
 import com.example.demo.entity.SensorReading;
 import com.example.demo.service.SensorReadingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
