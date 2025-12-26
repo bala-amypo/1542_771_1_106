@@ -21,6 +21,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleGeneralException(Exception ex) {
-        return new ResponseEntity<>(new ApiResponse(false, \"Unexpected error occurred\", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ApiResponse(false, "Unexpected error occurred", null), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
