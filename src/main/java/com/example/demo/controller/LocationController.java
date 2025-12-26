@@ -1,30 +1,25 @@
-package com.example.demo.controller;
-
-import com.example.demo.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("/api/locations")
+@Tag(name = "Locations Endpoints")
 public class LocationController {
-
     private final LocationService locationService;
 
-    @Autowired
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
 
-    // Example API endpoint to save location
-    @PostMapping("/save")
-    public String saveLocation(@RequestParam String locationName) {
-        locationService.saveLocation(locationName);
-        return "Location saved successfully: " + locationName;
+    @PostMapping
+    public ResponseEntity<Location> createLocation(@RequestBody Location location) {
+        return ResponseEntity.ok(locationService.createLocation(location));
     }
 
-    // Example API endpoint to get location by ID
+    @GetMapping
+    public ResponseEntity<List<Location>> getAllLocations() {
+        return ResponseEntity.ok(locationService.getAllLocations());
+    }
+
     @GetMapping("/{id}")
-    public String getLocation(@PathVariable Long id) {
-        return locationService.getLocation(id);
+    public ResponseEntity<Location> getLocation(@PathVariable Long id) {
+        return ResponseEntity.ok(locationService.getLocation(id));
     }
 }

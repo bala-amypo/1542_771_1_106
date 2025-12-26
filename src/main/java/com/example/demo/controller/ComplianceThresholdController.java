@@ -1,44 +1,30 @@
-package com.example.demo.controller;
-
-import com.example.demo.entity.ComplianceThreshold;
-import com.example.demo.service.ComplianceThresholdService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-
 @RestController
-@RequestMapping("/threshold")
+@RequestMapping("/api/thresholds")
+@Tag(name = "Thresholds Endpoints")
 public class ComplianceThresholdController {
+    private final ComplianceThresholdService thresholdService;
 
-    private final ComplianceThresholdService complianceThresholdService;
-
-    @Autowired
-    public ComplianceThresholdController(ComplianceThresholdService complianceThresholdService) {
-        this.complianceThresholdService = complianceThresholdService;
+    public ComplianceThresholdController(ComplianceThresholdService thresholdService) {
+        this.thresholdService = thresholdService;
     }
 
-    // Create a new threshold
     @PostMapping
-    public ComplianceThreshold createThreshold(@RequestBody ComplianceThreshold complianceThreshold) {
-        return complianceThresholdService.createThreshold(complianceThreshold);
+    public ResponseEntity<ComplianceThreshold> createThreshold(@RequestBody ComplianceThreshold threshold) {
+        return ResponseEntity.ok(thresholdService.createThreshold(threshold));
     }
 
-    // Get all thresholds
     @GetMapping
-    public List<ComplianceThreshold> getAllThresholds() {
-        return complianceThresholdService.getAllThresholds();
+    public ResponseEntity<List<ComplianceThreshold>> getAllThresholds() {
+        return ResponseEntity.ok(thresholdService.getAllThresholds());
     }
 
-    // Get a threshold by ID
     @GetMapping("/{id}")
-    public ComplianceThreshold getThreshold(@PathVariable Long id) {
-        Optional<ComplianceThreshold> threshold = complianceThresholdService.getThreshold(id);
-        if (threshold.isPresent()) {
-            return threshold.get();
-        } else {
-            throw new RuntimeException("Threshold not found");
-        }
+    public ResponseEntity<ComplianceThreshold> getThreshold(@PathVariable Long id) {
+        return ResponseEntity.ok(thresholdService.getThreshold(id));
+    }
+
+    @GetMapping("/type/{sensorType}")
+    public ResponseEntity<ComplianceThreshold> getThresholdBySensorType(@PathVariable String sensorType) {
+        return ResponseEntity.ok(thresholdService.getThresholdBySensorType(sensorType));
     }
 }
