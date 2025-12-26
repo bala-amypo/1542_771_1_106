@@ -1,21 +1,23 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.service.LocationService;
-import org.springframework.stereotype.Service;
-
-@Service
 public class LocationServiceImpl implements LocationService {
+    private final LocationRepository locationRepository;
 
-    // Example implementation of the methods
-    @Override
-    public void saveLocation(String locationName) {
-        // Save the location logic
-        System.out.println("Location saved: " + locationName);
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
     }
 
-    @Override
-    public String getLocation(Long locationId) {
-        // Retrieve location by ID logic (dummy data)
-        return "Location with ID: " + locationId;
+    public Location createLocation(Location location) {
+        if (location.getRegion() == null || location.getRegion().isEmpty()) {
+            throw new IllegalArgumentException("region required");
+        }
+        return locationRepository.save(location);
+    }
+
+    public Location getLocation(Long id) {
+        return locationRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Location not found"));
+    }
+
+    public List<Location> getAllLocations() {
+        return locationRepository.findAll();
     }
 }
