@@ -1,7 +1,15 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.ComplianceThreshold;
+import com.example.demo.service.ComplianceThresholdService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/thresholds")
-@Tag(name = "Thresholds Endpoints")
+@RequestMapping("/thresholds")
 public class ComplianceThresholdController {
+
     private final ComplianceThresholdService thresholdService;
 
     public ComplianceThresholdController(ComplianceThresholdService thresholdService) {
@@ -9,22 +17,23 @@ public class ComplianceThresholdController {
     }
 
     @PostMapping
-    public ResponseEntity<ComplianceThreshold> createThreshold(@RequestBody ComplianceThreshold threshold) {
-        return ResponseEntity.ok(thresholdService.createThreshold(threshold));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ComplianceThreshold>> getAllThresholds() {
-        return ResponseEntity.ok(thresholdService.getAllThresholds());
+    public ComplianceThreshold createThreshold(
+            @RequestBody ComplianceThreshold threshold) {
+        return thresholdService.createThreshold(threshold);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ComplianceThreshold> getThreshold(@PathVariable Long id) {
-        return ResponseEntity.ok(thresholdService.getThreshold(id));
+    public ComplianceThreshold getThreshold(@PathVariable Long id) {
+        return thresholdService.getThreshold(id);
     }
 
-    @GetMapping("/type/{sensorType}")
-    public ResponseEntity<ComplianceThreshold> getThresholdBySensorType(@PathVariable String sensorType) {
-        return ResponseEntity.ok(thresholdService.getThresholdBySensorType(sensorType));
+    @GetMapping("/sensorType/{type}")
+    public ComplianceThreshold getBySensorType(@PathVariable String type) {
+        return thresholdService.getThresholdBySensorType(type);
+    }
+
+    @GetMapping
+    public List<ComplianceThreshold> getAllThresholds() {
+        return thresholdService.getAllThresholds();
     }
 }

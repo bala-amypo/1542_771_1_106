@@ -1,7 +1,15 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.Location;
+import com.example.demo.service.LocationService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/locations")
-@Tag(name = "Locations Endpoints")
+@RequestMapping("/locations")
 public class LocationController {
+
     private final LocationService locationService;
 
     public LocationController(LocationService locationService) {
@@ -9,17 +17,17 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity<Location> createLocation(@RequestBody Location location) {
-        return ResponseEntity.ok(locationService.createLocation(location));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Location>> getAllLocations() {
-        return ResponseEntity.ok(locationService.getAllLocations());
+    public Location createLocation(@RequestBody Location location) {
+        return locationService.createLocation(location);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Location> getLocation(@PathVariable Long id) {
-        return ResponseEntity.ok(locationService.getLocation(id));
+    public Location getLocation(@PathVariable Long id) {
+        return locationService.getLocation(id);
+    }
+
+    @GetMapping
+    public List<Location> getAllLocations() {
+        return locationService.getAllLocations();
     }
 }
