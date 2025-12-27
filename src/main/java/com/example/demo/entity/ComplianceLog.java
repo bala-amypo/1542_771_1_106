@@ -1,22 +1,42 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+
 @Entity
-@Table(name = "compliance_logs")
 public class ComplianceLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "reading_id")
     private SensorReading sensorReading;
 
-    @ManyToOne
-    @JoinColumn(name = "threshold_id")
-    private ComplianceThreshold thresholdUsed;
-
     private String statusAssigned;
-    private String remarks;
-    private LocalDateTime loggedAt;
 
-    public ComplianceLog() {}
-    // Getters and setters
+    // ✅ REQUIRED by tests
+    public Long getId() {
+        return id;
+    }
+
+    // ✅ REQUIRED by tests
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public SensorReading getSensorReading() {
+        return sensorReading;
+    }
+
+    public void setSensorReading(SensorReading sensorReading) {
+        this.sensorReading = sensorReading;
+    }
+
+    public String getStatusAssigned() {
+        return statusAssigned;
+    }
+
+    public void setStatusAssigned(String statusAssigned) {
+        this.statusAssigned = statusAssigned;
+    }
 }
