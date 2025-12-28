@@ -1,4 +1,4 @@
-    package com.example.demo.repository;
+package com.example.demo.repository;
 
 import com.example.demo.entity.ComplianceThreshold;
 import java.util.Optional;
