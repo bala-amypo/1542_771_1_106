@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.*;
-import java.util.List;
+import com.example.demo.entity.ComplianceThreshold;
+
 public interface ComplianceThresholdService {
     ComplianceThreshold createThreshold(ComplianceThreshold threshold);
-    ComplianceThreshold getThreshold(Long id);
-    ComplianceThreshold getThresholdBySensorType(String type);
-    List<ComplianceThreshold> getAllThresholds();
+    ComplianceThreshold getThresholdBySensorType(String sensorType);
 }
