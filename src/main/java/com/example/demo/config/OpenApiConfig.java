@@ -1,26 +1,42 @@
+package com.example.demo.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
+import java.util.List;
+
 @Configuration
 public class OpenApiConfig {
+
     @Bean
     public OpenAPI customOpenAPI() {
+
+        // JWT Security Scheme
+        SecurityScheme securityScheme = new SecurityScheme()
+                .name("Authorization")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER);
+
+        // Apply JWT globally
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+                .addList("Bearer Authentication");
+
         return new OpenAPI()
-            .info(new Info()
-                .title("Water Quality Compliance API")
-                .version("1.0")
-                .description("API for monitoring water quality compliance"))
-            .components(new Components()
-                .addSecuritySchemes("bearerAuth",
-                    new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")))
-            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+                // Server with port number
+                .servers(List.of(
+                        new Server().url("https://9133.32procr.amypo.ai")
+                ))
+                // Swagger Authorize button
+                .components(new Components()
+                        .addSecuritySchemes("Bearer Authentication", securityScheme)
+                )
+                .addSecurityItem(securityRequirement);
     }
 }
