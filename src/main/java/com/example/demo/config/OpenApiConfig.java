@@ -31,7 +31,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 // Server with port number
                 .servers(List.of(
-                        new Server().url("https://9040.32procr.amypo.ai/")
+                        new Server().url("https://9066.pro604cr.amypo.ai/")
                 ))
                 // Swagger Authorize button
                 .components(new Components()
